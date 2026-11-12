@@ -8,6 +8,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: abess-mobile-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   verify:
     name: Typecheck and bundle Android/iOS
@@ -37,6 +41,7 @@ jobs:
 
   android-native:
     name: Native Android debug build
+    needs: verify
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
