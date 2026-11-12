@@ -1,0 +1,1 @@
+{"expo":{"name":"ABESS VPN","slug":"abessvpn-mobile","scheme":"abessvpn","version":"0.1.0","orientation":"portrait","userInterfaceStyle":"automatic","plugins":["expo-router","expo-secure-store"],"android":{"package":"com.abessvpn.panel"},"ios":{"bundleIdentifier":"com.abessvpn.panel"}}}
