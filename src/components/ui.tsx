@@ -19,7 +19,6 @@ export function Badge({text}:{text:string}){return <View style={s.badge}><Text s
 export function Sheet({visible,onClose,title,children}:{visible:boolean;onClose:()=>void;title:string;children:ReactNode}){
   return <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}><View style={s.backdrop}><View style={s.sheet}><View style={s.sheetHead}><Text style={s.sheetTitle}>{title}</Text><Pressable onPress={onClose}><Text style={s.close}>Fermer</Text></Pressable></View><ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{gap:12,paddingBottom:32}}>{children}</ScrollView></View></View></Modal>
 }
-export const ui=s;
 const s=StyleSheet.create({
   safe:{flex:1,backgroundColor:theme.bg},scroll:{paddingBottom:28},body:{padding:18,gap:12},
   title:{fontSize:28,fontWeight:'900',color:theme.text},muted:{color:theme.muted,lineHeight:20},
@@ -34,3 +33,4 @@ const s=StyleSheet.create({
   sheet:{maxHeight:'90%',backgroundColor:theme.bg,borderTopLeftRadius:24,borderTopRightRadius:24,padding:18,borderWidth:1,borderColor:theme.border},
   sheetHead:{flexDirection:'row',justifyContent:'space-between',alignItems:'center',marginBottom:14},sheetTitle:{color:theme.text,fontSize:20,fontWeight:'900'},close:{color:theme.primary,fontWeight:'800'}
 });
+export const ui=s;
