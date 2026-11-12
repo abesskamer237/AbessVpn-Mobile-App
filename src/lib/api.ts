@@ -1,7 +1,7 @@
 import * as SecureStore from 'expo-secure-store';
 import type {ApiUser} from '@/types';
 
-const baseUrl=(process.env.EXPO_PUBLIC_API_BASE_URL||'').replace(/\/$/,'');
+const baseUrl=(process.env.EXPO_PUBLIC_API_BASE_URL||'https://abessserveur.pagnol.xyz').replace(/\/$/,'');
 const SESSION_KEY='abess_session_token';
 
 export async function setSession(token:string|null){if(token)await SecureStore.setItemAsync(SESSION_KEY,token);else await SecureStore.deleteItemAsync(SESSION_KEY);}
@@ -9,7 +9,6 @@ export async function getSession(){return SecureStore.getItemAsync(SESSION_KEY);
 export function apiBaseUrl(){return baseUrl;}
 
 export async function api<T=any>(path:string,init:RequestInit={}):Promise<T>{
-  if(!baseUrl)throw new Error('Configure EXPO_PUBLIC_API_BASE_URL dans .env');
   const token=await getSession();
   const res=await fetch(baseUrl+path,{...init,headers:{'Content-Type':'application/json',Accept:'application/json',...(token?{Authorization:'Bearer '+token}:{}),...(init.headers||{})}});
   const text=await res.text();let data:any={};
