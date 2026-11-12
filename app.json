@@ -1,23 +1,29 @@
 {
-  "expo":{
-    "name":"ABESS VPN",
-    "slug":"abessvpn-mobile",
-    "scheme":"abessvpn",
-    "version":"0.2.0",
-    "orientation":"portrait",
-    "userInterfaceStyle":"dark",
-    "plugins":[
+  "expo": {
+    "name": "ABESS VPN",
+    "slug": "abessvpn-mobile",
+    "scheme": "abessvpn",
+    "version": "0.2.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "plugins": [
       "expo-router",
-      ["expo-secure-store",{"configureAndroidBackup":true}]
+      [
+        "expo-secure-store",
+        {
+          "configureAndroidBackup": true
+        }
+      ]
     ],
-    "ios":{
-      "bundleIdentifier":"com.abessvpn.panel",
-      "supportsTablet":true,
-      "config":{"usesNonExemptEncryption":false}
+    "ios": {
+      "bundleIdentifier": "com.abessvpn.panel",
+      "supportsTablet": true,
+      "config": {
+        "usesNonExemptEncryption": false
+      }
     },
-    "android":{
-      "package":"com.abessvpn.panel",
-      "edgeToEdgeEnabled":true
+    "android": {
+      "package": "com.abessvpn.panel"
     }
   }
 }
