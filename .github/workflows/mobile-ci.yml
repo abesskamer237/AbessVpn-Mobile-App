@@ -1,0 +1,61 @@
+name: Verify ABESS Mobile
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Typecheck and bundle Android/iOS
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm install
+      - name: Expo dependency check
+        run: npx expo install --check
+      - name: Expo doctor
+        run: npx expo-doctor
+      - name: TypeScript
+        run: npm run typecheck
+      - name: Bundle Android
+        env:
+          EXPO_PUBLIC_API_BASE_URL: https://example.invalid
+        run: npm run export:android
+      - name: Bundle iOS
+        env:
+          EXPO_PUBLIC_API_BASE_URL: https://example.invalid
+        run: npm run export:ios
+
+  android-native:
+    name: Native Android debug build
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Install dependencies
+        run: npm install
+      - name: Generate Android project
+        env:
+          EXPO_PUBLIC_API_BASE_URL: https://example.invalid
+        run: npx expo prebuild --clean --platform android --no-install
+      - name: Build Android debug APK
+        working-directory: android
+        run: ./gradlew assembleDebug --no-daemon
