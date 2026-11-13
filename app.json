@@ -3,7 +3,7 @@
     "name": "ABESS VPN Control",
     "slug": "abessvpn-mobile",
     "scheme": "abessvpn",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
     "plugins": [
@@ -13,6 +13,24 @@
         {
           "configureAndroidBackup": true
         }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "buildArchs": [
+              "arm64-v8a"
+            ],
+            "enableMinifyInReleaseBuilds": true,
+            "enableShrinkResourcesInReleaseBuilds": true,
+            "enableBundleCompression": true,
+            "enablePngCrunchInReleaseBuilds": true,
+            "gifEnabled": false,
+            "webpEnabled": false,
+            "webpAnimated": false,
+            "networkInspector": false
+          }
+        }
       ]
     ],
     "ios": {
@@ -21,11 +39,11 @@
       "config": {
         "usesNonExemptEncryption": false
       },
-      "buildNumber": "3"
+      "buildNumber": "4"
     },
     "android": {
       "package": "com.abessvpn.panel",
-      "versionCode": 3
+      "versionCode": 4
     }
   }
 }
