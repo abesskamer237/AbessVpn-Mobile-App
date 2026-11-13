@@ -128,7 +128,7 @@ export default function Clients(){
           {!!device.userAgent&&<Text numberOfLines={2} style={ui.muted}>Client : {device.userAgent}</Text>}
           <Button title={device.blocked?'Réautoriser cet appareil':'Suspendre cet appareil'} kind={device.blocked?'secondary':'danger'} disabled={devicesBusy} onPress={()=>void toggleDevice(device)}/>
         </Card>)}
-        {config&&<Card><Text style={s.name}>Configuration client</Text><Text style={ui.muted}>Serveur : {config.host}:{config.port}</Text><Text style={ui.muted}>SNI : {config.sni}</Text><Text selectable style={ui.muted}>Utilisateur : {config.username}</Text><Text selectable style={ui.muted}>Mot de passe : {config.password}</Text><Text selectable style={ui.muted}>Chemin : {config.path}</Text>{!!config.payload&&<><Text style={s.name}>Payload WillyVPN / HTTP Custom</Text><Text selectable style={ui.muted}>{config.payload}</Text></>}<Text selectable style={ui.muted}>Empreinte : {config.fingerprint}</Text></Card>}
+        {config&&<Card><Text style={s.name}>Configuration client</Text><Text style={ui.muted}>Serveur : {config.host}:{config.port}</Text><Text style={ui.muted}>SNI : {config.sni}</Text><Text selectable style={ui.muted}>Utilisateur : {config.username}</Text><Text selectable style={ui.muted}>Mot de passe : {config.password}</Text><Text selectable style={ui.muted}>Chemin : {config.path}</Text>{!!config.payload&&<><Text style={s.name}>Payload SSH-WSS</Text><Text selectable style={ui.muted}>{config.payload}</Text></>}<Text selectable style={ui.muted}>Empreinte : {config.fingerprint}</Text></Card>}
         <Button title="Supprimer définitivement" kind="danger" disabled={busy} onPress={remove}/>
       </>}
     </Sheet>
