@@ -19,7 +19,7 @@ export default function Dashboard(){
     }catch(e){setError(e instanceof Error?e.message:'Chargement impossible');}
     finally{setLoading(false);}
   },[]);
-  useEffect(()=>{void load();},[]);
+  useEffect(()=>{void load();const timer=setInterval(()=>{void load();},10000);return()=>clearInterval(timer);},[load]);
   const accounts=(ssh?.accounts||[]).filter(a=>a.managed);
   const active=accounts.filter(a=>accountStatus(a).key==='active').length;
   const alerts=accounts.filter(a=>['quota','error','expired','expiring'].includes(accountStatus(a).key)).length;
