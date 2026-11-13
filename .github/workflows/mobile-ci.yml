@@ -65,11 +65,11 @@ jobs:
       - name: Prepare distributable APK
         run: |
           mkdir -p release
-          cp android/app/build/outputs/apk/release/app-release.apk release/ABESS-VPN-Control-v0.3.5-ARM64-MIN.apk
+          cp android/app/build/outputs/apk/release/app-release.apk release/ABESS-VPN-Control-v0.3.6-ARM64-MIN.apk
       - name: Upload installable APK
         uses: actions/upload-artifact@v4
         with:
-          name: ABESS-VPN-Control-v0.3.5-ARM64-MIN
-          path: release/ABESS-VPN-Control-v0.3.5-ARM64-MIN.apk
+          name: ABESS-VPN-Control-v0.3.6-ARM64-MIN
+          path: release/ABESS-VPN-Control-v0.3.6-ARM64-MIN.apk
           if-no-files-found: error
           retention-days: 30
