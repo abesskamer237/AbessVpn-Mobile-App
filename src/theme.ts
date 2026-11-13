@@ -20,6 +20,6 @@ export const theme={
   danger:'#FF5F68',
   dangerSoft:'rgba(255,95,104,0.12)',
   info:'#6EA8FE',
-  radius:{sm:10,md:14,lg:18,xl:24},
-  spacing:{xs:6,sm:10,md:14,lg:18,xl:24,xxl:32}
+  radius:{sm:7,md:10,lg:12,xl:16},
+  spacing:{xs:3,sm:6,md:9,lg:12,xl:16,xxl:22}
 } as const;
