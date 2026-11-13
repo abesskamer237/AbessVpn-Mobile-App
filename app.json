@@ -3,7 +3,7 @@
     "name": "ABESS VPN Control",
     "slug": "abessvpn-mobile",
     "scheme": "abessvpn",
-    "version": "0.3.4",
+    "version": "0.3.5",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
     "plugins": [
@@ -40,11 +40,11 @@
       "config": {
         "usesNonExemptEncryption": false
       },
-      "buildNumber": "7"
+      "buildNumber": "8"
     },
     "android": {
       "package": "com.abessvpn.panel",
-      "versionCode": 7
+      "versionCode": 8
     }
   }
 }
