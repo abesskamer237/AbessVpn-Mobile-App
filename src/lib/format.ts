@@ -1,6 +1,7 @@
 import type {SshAccount} from '@/types';
 
 export const bytesToGb=(n:number|null|undefined)=>Number((Number(n||0)/1024**3).toFixed(2));
+export const formatBytes=(n:number|null|undefined)=>{const v=Math.max(0,Number(n||0));if(v<1024)return Math.round(v)+' o';if(v<1024**2)return (v/1024).toFixed(v<10240?1:0)+' Ko';if(v<1024**3)return (v/1024**2).toFixed(v<10*1024**2?2:1)+' Mo';return (v/1024**3).toFixed(2)+' Go';};
 export const fmtDate=(v?:string)=>v?new Date(v).toLocaleDateString('fr-FR'):'—';
 export const fmtDateTime=(v?:string|number)=>v?new Date(v).toLocaleString('fr-FR'):'—';
 export const percent=(used:number|null|undefined,total:number|null|undefined)=>!total?0:Math.max(0,Math.min(100,Math.round(Number(used||0)/total*100)));
