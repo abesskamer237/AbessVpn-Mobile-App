@@ -32,7 +32,7 @@ export default function Clients(){
     }catch(e){setError(e instanceof Error?e.message:'Chargement impossible');}
   },[nodeId,selected?.id]);
 
-  useEffect(()=>{void load();},[]);
+  useEffect(()=>{void load();const timer=setInterval(()=>{void load();},10000);return()=>clearInterval(timer);},[load]);
   const accounts=useMemo(()=>(inventory?.accounts||[]).filter(a=>a.managed&&(!search.trim()||[a.label,a.username,a.resellerName||''].join(' ').toLowerCase().includes(search.toLowerCase()))),[inventory,search]);
 
   async function create(){
@@ -92,7 +92,7 @@ export default function Clients(){
       ListEmptyComponent={<Card><Text style={ui.muted}>Aucun client SSH-WSS.</Text></Card>}
       renderItem={({item})=>{const st=accountStatus(item),p=percent(item.usedBytes,item.quotaBytes);return <Pressable onPress={()=>{setSelected(item);setConfig(null);setDevices([]);void loadDevices(item.id)}}><Card>
         <View style={s.row}><View style={{flex:1}}><Text style={s.name}>{item.label}</Text><Text style={ui.muted}>{item.username}</Text></View><Badge text={st.label}/></View>
-        <Text style={ui.muted}>{bytesToGb(item.usedBytes)} / {bytesToGb(item.quotaBytes)} Go · {p}%</Text>
+        <Text style={ui.muted}>{item.trafficVerified?(bytesToGb(item.usedBytes)+' / '+bytesToGb(item.quotaBytes)+' Go · '+p+'%'):('Trafic en attente de mesure · quota '+bytesToGb(item.quotaBytes)+' Go')}</Text>
         <View style={s.bar}><View style={[s.fill,{width:(p+'%') as any}]}/></View>
         <Text style={ui.muted}>{item.online??'—'} / {item.maxConnections} session(s) · Exp. {fmtDate(item.expiresAt)}</Text>
         <Text style={ui.muted}>Revendeur : {item.resellerName||'Administration'}</Text>
@@ -113,7 +113,7 @@ export default function Clients(){
 
     <Sheet visible={!!selected} onClose={()=>setSelected(null)} title={selected?.label||'Client'}>
       {selected&&<>
-        <Card><Text style={s.name}>{selected.username}</Text><Text style={ui.muted}>{accountStatus(selected).label} · {selected.resellerName||'Administration'}</Text><Text style={ui.muted}>Expiration : {fmtDate(selected.expiresAt)}</Text><Text style={ui.muted}>Quota : {bytesToGb(selected.usedBytes)} / {bytesToGb(selected.quotaBytes)} Go</Text></Card>
+        <Card><Text style={s.name}>{selected.username}</Text><Text style={ui.muted}>{accountStatus(selected).label} · {selected.resellerName||'Administration'}</Text><Text style={ui.muted}>Expiration : {fmtDate(selected.expiresAt)}</Text><Text style={ui.muted}>Quota : {selected.trafficVerified?(bytesToGb(selected.usedBytes)+' / '+bytesToGb(selected.quotaBytes)+' Go'):('mesure en attente / '+bytesToGb(selected.quotaBytes)+' Go')}</Text>{selected.usageObservedAt&&<Text style={ui.muted}>Trafic observé : {new Date(selected.usageObservedAt).toLocaleString('fr-FR')}</Text>}</Card>
         <Button title={selected.enabled?'Suspendre':'Réactiver'} kind="secondary" disabled={busy} onPress={()=>void toggle(selected)}/>
         <Label>Renouvellement</Label><View style={s.two}><View style={{flex:1,gap:6}}><Label>Go +</Label><Field keyboardType="decimal-pad" value={renewGb} onChangeText={setRenewGb}/></View><View style={{flex:1,gap:6}}><Label>Jours +</Label><Field keyboardType="number-pad" value={renewDays} onChangeText={setRenewDays}/></View></View>
         <Button title="Renouveler" disabled={busy} onPress={()=>void renew()}/>
