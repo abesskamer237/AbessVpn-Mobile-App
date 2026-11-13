@@ -51,13 +51,13 @@ export default function Dashboard(){
   </Screen>;
 }
 const s=StyleSheet.create({
-  heroCard:{backgroundColor:'#10151C',borderWidth:1,borderColor:theme.primaryBorder,borderRadius:24,padding:18,gap:16},
-  heroTop:{flexDirection:'row',justifyContent:'space-between',alignItems:'flex-start',gap:12},heroLabel:{color:theme.primary,fontSize:10,fontWeight:'900',letterSpacing:1.5},
-  heroValue:{color:theme.text,fontSize:38,fontWeight:'900',letterSpacing:-1.5,marginTop:2},heroSub:{color:theme.muted,fontSize:12,fontWeight:'700'},
-  health:{flexDirection:'row',alignItems:'center',gap:7,backgroundColor:theme.surface2,borderWidth:1,borderColor:theme.border,borderRadius:99,paddingHorizontal:10,paddingVertical:7},healthText:{color:theme.textSoft,fontSize:10,fontWeight:'800'},
-  heroDivider:{height:1,backgroundColor:theme.borderSoft},heroStats:{flexDirection:'row',justifyContent:'space-between',gap:12},miniValue:{color:theme.text,fontSize:15,fontWeight:'900'},miniLabel:{color:theme.muted,fontSize:10,marginTop:2},
-  grid:{gap:10},kpi:{color:theme.text,fontSize:25,fontWeight:'900',letterSpacing:-.5},kpiLabel:{color:theme.textSoft,fontSize:12,fontWeight:'800'},
-  line:{flexDirection:'row',justifyContent:'space-between',alignItems:'center',gap:10,paddingVertical:5},lineBorder:{borderTopWidth:1,borderTopColor:theme.borderSoft,paddingTop:12,marginTop:3},
-  lineLeft:{flexDirection:'row',alignItems:'center',gap:10},name:{color:theme.text,fontWeight:'900',fontSize:14},subtle:{color:theme.muted,fontSize:11,marginTop:2},
+  heroCard:{backgroundColor:'#10151C',borderWidth:1,borderColor:theme.primaryBorder,borderRadius:15,padding:10,gap:8},
+  heroTop:{flexDirection:'row',justifyContent:'space-between',alignItems:'flex-start',gap:7},heroLabel:{color:theme.primary,fontSize:8,fontWeight:'900',letterSpacing:1},
+  heroValue:{color:theme.text,fontSize:26,fontWeight:'900',letterSpacing:-1,marginTop:2},heroSub:{color:theme.muted,fontSize:9,fontWeight:'700'},
+  health:{flexDirection:'row',alignItems:'center',gap:4,backgroundColor:theme.surface2,borderWidth:1,borderColor:theme.border,borderRadius:99,paddingHorizontal:7,paddingVertical:4},healthText:{color:theme.textSoft,fontSize:8,fontWeight:'800'},
+  heroDivider:{height:1,backgroundColor:theme.borderSoft},heroStats:{flexDirection:'row',justifyContent:'space-between',gap:7},miniValue:{color:theme.text,fontSize:12,fontWeight:'900'},miniLabel:{color:theme.muted,fontSize:8,marginTop:1},
+  grid:{gap:6},kpi:{color:theme.text,fontSize:18,fontWeight:'900',letterSpacing:-.5},kpiLabel:{color:theme.textSoft,fontSize:9,fontWeight:'800'},
+  line:{flexDirection:'row',justifyContent:'space-between',alignItems:'center',gap:6,paddingVertical:3},lineBorder:{borderTopWidth:1,borderTopColor:theme.borderSoft,paddingTop:7,marginTop:2},
+  lineLeft:{flexDirection:'row',alignItems:'center',gap:6},name:{color:theme.text,fontWeight:'900',fontSize:11},subtle:{color:theme.muted,fontSize:9,marginTop:1},
   tx:{flexDirection:'row',gap:12,paddingVertical:4},amount:{color:theme.primary,fontWeight:'900',fontSize:12}
 });
