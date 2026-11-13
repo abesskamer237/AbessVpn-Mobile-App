@@ -2,7 +2,7 @@ import {useCallback,useEffect,useMemo,useState} from 'react';
 import {Alert,FlatList,Pressable,RefreshControl,StyleSheet,Text,View} from 'react-native';
 import {api,randomKey} from '@/lib/api';
 import {accountStatus,bytesToGb,fmtDate,percent} from '@/lib/format';
-import type {ClientConfig,Reseller,SshAccount,SshInventory} from '@/types';
+import type {ClientConfig,Reseller,SshAccount,SshInventory,SshDevice} from '@/types';
 import {Badge,Button,Card,ErrorText,Field,Label,Screen,Sheet,Title,ui} from '@/components/ui';
 import {theme} from '@/theme';
 
@@ -15,6 +15,7 @@ export default function Clients(){
   const [label,setLabel]=useState(''),[username,setUsername]=useState('abv_'),[password,setPassword]=useState('');
   const [days,setDays]=useState('30'),[quota,setQuota]=useState('10'),[connections,setConnections]=useState('1'),[nodeId,setNodeId]=useState(''),[resellerId,setResellerId]=useState('');
   const [renewDays,setRenewDays]=useState('30'),[renewGb,setRenewGb]=useState('5'),[config,setConfig]=useState<ClientConfig|null>(null);
+  const [devices,setDevices]=useState<SshDevice[]>([]),[devicesBusy,setDevicesBusy]=useState(false);
 
   const load=useCallback(async()=>{
     setError('');
@@ -56,6 +57,17 @@ export default function Clients(){
     try{await api('/api/v1/admin/ssh/accounts/'+selected.id+'/renew',{method:'POST',headers:{'Idempotency-Key':randomKey()},body:JSON.stringify({additionalGb:Number(renewGb),days:Number(renewDays)})});await load();}
     catch(e){setError(e instanceof Error?e.message:'Renouvellement impossible');}finally{setBusy(false);}
   }
+  async function loadDevices(accountId:string){
+    setDevicesBusy(true);setError('');
+    try{setDevices(await api<SshDevice[]>('/api/v1/admin/ssh/accounts/'+accountId+'/devices'));}
+    catch(e){setError(e instanceof Error?e.message:'Appareils indisponibles');}
+    finally{setDevicesBusy(false);}
+  }
+  async function toggleDevice(device:SshDevice){
+    if(!selected)return;setDevicesBusy(true);setError('');
+    try{await api('/api/v1/admin/ssh/accounts/'+selected.id+'/devices/'+device.deviceKey,{method:'PUT',body:JSON.stringify({blocked:!device.blocked})});await loadDevices(selected.id);}
+    catch(e){setError(e instanceof Error?e.message:'Modification appareil impossible');setDevicesBusy(false);}
+  }
   async function showConfig(){
     if(!selected)return;setBusy(true);setError('');
     try{setConfig(await api<ClientConfig>('/api/v1/admin/ssh/accounts/'+selected.id+'/config',{method:'POST',body:JSON.stringify({transport:'wss'})}));}
@@ -78,7 +90,7 @@ export default function Clients(){
     <FlatList style={{flex:1}} contentContainerStyle={{padding:18,paddingTop:4,gap:10,paddingBottom:40}} data={accounts} keyExtractor={x=>x.id}
       refreshControl={<RefreshControl refreshing={refreshing} tintColor={theme.primary} onRefresh={()=>{setRefreshing(true);void load().finally(()=>setRefreshing(false))}}/>}
       ListEmptyComponent={<Card><Text style={ui.muted}>Aucun client SSH-WSS.</Text></Card>}
-      renderItem={({item})=>{const st=accountStatus(item),p=percent(item.usedBytes,item.quotaBytes);return <Pressable onPress={()=>{setSelected(item);setConfig(null)}}><Card>
+      renderItem={({item})=>{const st=accountStatus(item),p=percent(item.usedBytes,item.quotaBytes);return <Pressable onPress={()=>{setSelected(item);setConfig(null);setDevices([]);void loadDevices(item.id)}}><Card>
         <View style={s.row}><View style={{flex:1}}><Text style={s.name}>{item.label}</Text><Text style={ui.muted}>{item.username}</Text></View><Badge text={st.label}/></View>
         <Text style={ui.muted}>{bytesToGb(item.usedBytes)} / {bytesToGb(item.quotaBytes)} Go · {p}%</Text>
         <View style={s.bar}><View style={[s.fill,{width:(p+'%') as any}]}/></View>
@@ -106,6 +118,16 @@ export default function Clients(){
         <Label>Renouvellement</Label><View style={s.two}><View style={{flex:1,gap:6}}><Label>Go +</Label><Field keyboardType="decimal-pad" value={renewGb} onChangeText={setRenewGb}/></View><View style={{flex:1,gap:6}}><Label>Jours +</Label><Field keyboardType="number-pad" value={renewDays} onChangeText={setRenewDays}/></View></View>
         <Button title="Renouveler" disabled={busy} onPress={()=>void renew()}/>
         <Button title="Afficher la configuration SSH-WSS" kind="secondary" disabled={busy||!selected.effectiveEnabled} onPress={()=>void showConfig()}/>
+        <Label>Appareils connectés</Label>
+        <Card><Text style={s.name}>{devices.filter(d=>(d.activeSessions||0)>0).length} appareil(s) actuellement actif(s)</Text><Text style={ui.muted}>{devices.length} appareil(s) détecté(s) pour cette licence</Text></Card>
+        {devicesBusy&&<Text style={ui.muted}>Synchronisation des appareils…</Text>}
+        {devices.map(device=><Card key={device.deviceKey}>
+          <View style={s.row}><View style={{flex:1}}><Text style={s.name}>{device.name||device.brand||'Appareil inconnu'}</Text><Text style={ui.muted}>{device.brand&&device.name?device.brand+' · ':''}{device.ip||'IP indisponible'}</Text></View><Badge text={device.blocked?'Suspendu':(device.activeSessions||0)>0?'Connecté':'Hors ligne'}/></View>
+          <Text style={ui.muted}>Consommation : {bytesToGb(device.usedBytes)} Go · ↑ {bytesToGb(device.upBytes)} Go · ↓ {bytesToGb(device.downBytes)} Go</Text>
+          <Text style={ui.muted}>Sessions : {device.activeSessions||0} · Dernière activité : {device.lastSeenAt?new Date(device.lastSeenAt).toLocaleString('fr-FR'):'—'}</Text>
+          {!!device.userAgent&&<Text numberOfLines={2} style={ui.muted}>Client : {device.userAgent}</Text>}
+          <Button title={device.blocked?'Réautoriser cet appareil':'Suspendre cet appareil'} kind={device.blocked?'secondary':'danger'} disabled={devicesBusy} onPress={()=>void toggleDevice(device)}/>
+        </Card>)}
         {config&&<Card><Text style={s.name}>Configuration client</Text><Text style={ui.muted}>Serveur : {config.host}:{config.port}</Text><Text style={ui.muted}>SNI : {config.sni}</Text><Text selectable style={ui.muted}>Utilisateur : {config.username}</Text><Text selectable style={ui.muted}>Mot de passe : {config.password}</Text><Text selectable style={ui.muted}>Chemin : {config.path}</Text><Text selectable style={ui.muted}>Empreinte : {config.fingerprint}</Text></Card>}
         <Button title="Supprimer définitivement" kind="danger" disabled={busy} onPress={remove}/>
       </>}
