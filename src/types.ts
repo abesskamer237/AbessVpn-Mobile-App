@@ -22,7 +22,7 @@ export type ManagedNode={
 export type SshAccount={
   id:string;username:string;label:string;nodeId:string;managed:boolean;
   provisionState:string;enabled:boolean;expiresAt:string;quotaBytes:number;usedBytes:number|null;
-  online:number|null;maxConnections:number;trafficVerified:boolean;effectiveEnabled:boolean;
+  online:number|null;maxConnections:number;trafficVerified:boolean;usageObservedAt?:string;effectiveEnabled:boolean;
   ready?:boolean;createdAt:string;resellerId?:string;resellerName?:string;
   connection?:{host?:string;transport:string;port:number};
 };
