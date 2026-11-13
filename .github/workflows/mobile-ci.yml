@@ -40,7 +40,7 @@ jobs:
         run: npm run export:ios
 
   android-native:
-    name: Native Android debug build
+    name: Optimized Android release build
     needs: verify
     runs-on: ubuntu-latest
     timeout-minutes: 45
@@ -59,17 +59,17 @@ jobs:
         env:
           EXPO_PUBLIC_API_BASE_URL: https://example.invalid
         run: npx expo prebuild --clean --platform android --no-install
-      - name: Build Android installable APK
+      - name: Build optimized ARM64 release APK
         working-directory: android
-        run: ./gradlew assembleDebug --no-daemon
+        run: ./gradlew assembleRelease --no-daemon
       - name: Prepare distributable APK
         run: |
           mkdir -p release
-          cp android/app/build/outputs/apk/debug/app-debug.apk release/ABESS-VPN-Control-v0.3.0.apk
+          cp android/app/build/outputs/apk/release/app-release.apk release/ABESS-VPN-Control-v0.3.1-ARM64.apk
       - name: Upload installable APK
         uses: actions/upload-artifact@v4
         with:
-          name: ABESS-VPN-Control-v0.3.0-Android
-          path: release/ABESS-VPN-Control-v0.3.0.apk
+          name: ABESS-VPN-Control-v0.3.1-ARM64
+          path: release/ABESS-VPN-Control-v0.3.1-ARM64.apk
           if-no-files-found: error
           retention-days: 30
