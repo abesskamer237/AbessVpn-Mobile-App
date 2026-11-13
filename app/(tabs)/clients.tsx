@@ -81,13 +81,13 @@ export default function Clients(){
   }
 
   return <Screen scroll={false}>
-    <View style={{padding:18,paddingBottom:8,gap:10}}>
+    <View style={{padding:10,paddingBottom:5,gap:6}}>
       <Title sub="Création, quotas, sessions, renouvellements et accès SSH-WSS.">Clients</Title>
       <ErrorText value={error}/>
       <Field placeholder="Rechercher un client…" value={search} onChangeText={setSearch}/>
       <Button title="Nouveau client" onPress={()=>{setError('');setCreateOpen(true)}}/>
     </View>
-    <FlatList style={{flex:1}} contentContainerStyle={{padding:18,paddingTop:4,gap:10,paddingBottom:40}} data={accounts} keyExtractor={x=>x.id}
+    <FlatList style={{flex:1}} contentContainerStyle={{padding:10,paddingTop:3,gap:6,paddingBottom:26}} data={accounts} keyExtractor={x=>x.id}
       refreshControl={<RefreshControl refreshing={refreshing} tintColor={theme.primary} onRefresh={()=>{setRefreshing(true);void load().finally(()=>setRefreshing(false))}}/>}
       ListEmptyComponent={<Card><Text style={ui.muted}>Aucun client SSH-WSS.</Text></Card>}
       renderItem={({item})=>{const st=accountStatus(item),p=percent(item.usedBytes,item.quotaBytes);return <Pressable onPress={()=>{setSelected(item);setConfig(null);setDevices([]);void loadDevices(item.id)}}><Card>
@@ -134,4 +134,4 @@ export default function Clients(){
     </Sheet>
   </Screen>;
 }
-const s=StyleSheet.create({row:{flexDirection:'row',alignItems:'center',gap:10},name:{color:theme.text,fontWeight:'900',fontSize:16},bar:{height:6,borderRadius:99,backgroundColor:theme.surface2,overflow:'hidden'},fill:{height:'100%',backgroundColor:theme.primary},two:{flexDirection:'row',gap:10}});
+const s=StyleSheet.create({row:{flexDirection:'row',alignItems:'center',gap:6},name:{color:theme.text,fontWeight:'900',fontSize:9},bar:{height:6,borderRadius:99,backgroundColor:theme.surface2,overflow:'hidden'},fill:{height:'100%',backgroundColor:theme.primary},two:{flexDirection:'row',gap:6}});
