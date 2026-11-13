@@ -19,14 +19,14 @@ export default function More(){
     {user?.role==='SUPER_ADMIN'&&<Item code="EQ" title="Équipe" sub="Administrateurs, permissions et statuts des comptes." onPress={()=>router.push('/(tabs)/team')}/>}
     <SectionTitle>Session</SectionTitle>
     <Pressable style={({pressed})=>[s.logout,pressed&&{opacity:.8}]} onPress={()=>void signOut()}><View><Text style={s.logoutTitle}>Se déconnecter</Text><Text style={s.logoutSub}>Fermer la session sur cet appareil</Text></View><Text style={s.logoutArrow}>↗</Text></Pressable>
-    <Text style={s.version}>ABESS VPN Mobile · v0.3</Text><View style={{height:76}}/>
+    <Text style={s.version}>ABESS VPN Mobile · v0.3</Text><View style={{height:56}}/>
   </Screen>;
 }
 const s=StyleSheet.create({
-  item:{flexDirection:'row',alignItems:'center',gap:12},icon:{width:38,height:38,borderRadius:12,backgroundColor:theme.primarySoft,borderWidth:1,borderColor:theme.primaryBorder,alignItems:'center',justifyContent:'center'},
-  iconText:{color:theme.primary,fontSize:10,fontWeight:'900',letterSpacing:.5},name:{color:theme.text,fontSize:15,fontWeight:'900'},chevron:{color:theme.muted,fontSize:25,fontWeight:'300'},
-  profile:{flexDirection:'row',alignItems:'center',gap:12},avatar:{width:48,height:48,borderRadius:16,backgroundColor:theme.primary,alignItems:'center',justifyContent:'center'},avatarText:{color:'#fff',fontWeight:'900',fontSize:21},
-  profileName:{color:theme.text,fontWeight:'900',fontSize:16},credit:{color:theme.primary,fontWeight:'900',fontSize:13,marginTop:4},
-  logout:{borderWidth:1,borderColor:'rgba(255,95,104,.22)',backgroundColor:theme.dangerSoft,borderRadius:18,padding:16,flexDirection:'row',alignItems:'center',justifyContent:'space-between'},
-  logoutTitle:{color:theme.danger,fontSize:15,fontWeight:'900'},logoutSub:{color:theme.muted,fontSize:11,marginTop:3},logoutArrow:{color:theme.danger,fontSize:19,fontWeight:'900'},version:{color:theme.muted2,fontSize:10,textAlign:'center',marginTop:5}
+  item:{flexDirection:'row',alignItems:'center',gap:12},icon:{width:28,height:28,borderRadius:9,backgroundColor:theme.primarySoft,borderWidth:1,borderColor:theme.primaryBorder,alignItems:'center',justifyContent:'center'},
+  iconText:{color:theme.primary,fontSize:10,fontWeight:'900',letterSpacing:.5},name:{color:theme.text,fontSize:9,fontWeight:'900'},chevron:{color:theme.muted,fontSize:18,fontWeight:'300'},
+  profile:{flexDirection:'row',alignItems:'center',gap:12},avatar:{width:34,height:34,borderRadius:11,backgroundColor:theme.primary,alignItems:'center',justifyContent:'center'},avatarText:{color:'#fff',fontWeight:'900',fontSize:15},
+  profileName:{color:theme.text,fontWeight:'900',fontSize:9},credit:{color:theme.primary,fontWeight:'900',fontSize:10,marginTop:4},
+  logout:{borderWidth:1,borderColor:'rgba(255,95,104,.22)',backgroundColor:theme.dangerSoft,borderRadius:12,padding:10,flexDirection:'row',alignItems:'center',justifyContent:'space-between'},
+  logoutTitle:{color:theme.danger,fontSize:9,fontWeight:'900'},logoutSub:{color:theme.muted,fontSize:9,marginTop:3},logoutArrow:{color:theme.danger,fontSize:14,fontWeight:'900'},version:{color:theme.muted2,fontSize:10,textAlign:'center',marginTop:5}
 });
