@@ -29,26 +29,26 @@ export function Sheet({visible,onClose,title,children}:{visible:boolean;onClose:
   return <Modal visible={visible} transparent animationType="slide" statusBarTranslucent onRequestClose={onClose}><View style={s.backdrop}><Pressable style={StyleSheet.absoluteFill} onPress={onClose}/><View style={s.sheet}><View style={s.handle}/><View style={s.sheetHead}><Text style={s.sheetTitle}>{title}</Text><Pressable hitSlop={12} onPress={onClose}><Text style={s.close}>Fermer</Text></Pressable></View><ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled" contentContainerStyle={s.sheetContent}>{children}</ScrollView></View></View></Modal>
 }
 const s=StyleSheet.create({
-  safe:{flex:1,backgroundColor:theme.bg},scroll:{paddingBottom:34},body:{paddingHorizontal:18,paddingTop:14,gap:14},
-  titleWrap:{gap:5,marginBottom:4},eyebrow:{fontSize:11,fontWeight:'900',letterSpacing:1.7,textTransform:'uppercase',color:theme.primary},
-  title:{fontSize:30,lineHeight:35,fontWeight:'900',letterSpacing:-0.7,color:theme.text},muted:{color:theme.muted,lineHeight:20,fontSize:14},
-  sectionHead:{flexDirection:'row',alignItems:'center',justifyContent:'space-between',marginTop:4},sectionTitle:{color:theme.text,fontSize:17,fontWeight:'900',letterSpacing:-0.2},sectionSub:{color:theme.muted,fontSize:12,marginTop:2},
-  card:{backgroundColor:theme.surface,borderWidth:1,borderColor:theme.borderSoft,borderRadius:theme.radius.lg,padding:16,gap:9},
+  safe:{flex:1,backgroundColor:theme.bg},scroll:{paddingBottom:18},body:{paddingHorizontal:10,paddingTop:8,gap:8},
+  titleWrap:{gap:2,marginBottom:1},eyebrow:{fontSize:8,fontWeight:'900',letterSpacing:1.1,textTransform:'uppercase',color:theme.primary},
+  title:{fontSize:21,lineHeight:24,fontWeight:'900',letterSpacing:-0.4,color:theme.text},muted:{color:theme.muted,lineHeight:15,fontSize:11},
+  sectionHead:{flexDirection:'row',alignItems:'center',justifyContent:'space-between',marginTop:2},sectionTitle:{color:theme.text,fontSize:13,fontWeight:'900',letterSpacing:-0.1},sectionSub:{color:theme.muted,fontSize:9,marginTop:1},
+  card:{backgroundColor:theme.surface,borderWidth:1,borderColor:theme.borderSoft,borderRadius:theme.radius.lg,padding:9,gap:5},
   cardAccent:{borderColor:theme.primaryBorder,backgroundColor:'#11151C'},
-  field:{backgroundColor:theme.bgSoft,borderWidth:1,borderColor:theme.border,borderRadius:theme.radius.md,paddingHorizontal:14,paddingVertical:13,color:theme.text,fontSize:15},
-  label:{color:theme.textSoft,fontWeight:'800',fontSize:12,letterSpacing:.15},
-  button:{minHeight:48,backgroundColor:theme.primary,borderRadius:theme.radius.md,paddingVertical:13,paddingHorizontal:16,alignItems:'center',justifyContent:'center'},
+  field:{backgroundColor:theme.bgSoft,borderWidth:1,borderColor:theme.border,borderRadius:theme.radius.md,paddingHorizontal:9,paddingVertical:8,color:theme.text,fontSize:12},
+  label:{color:theme.textSoft,fontWeight:'800',fontSize:9,letterSpacing:.1},
+  button:{minHeight:34,backgroundColor:theme.primary,borderRadius:theme.radius.md,paddingVertical:8,paddingHorizontal:10,alignItems:'center',justifyContent:'center'},
   secondary:{backgroundColor:theme.surface2,borderWidth:1,borderColor:theme.border},danger:{backgroundColor:theme.danger},
-  buttonText:{color:'#fff',fontWeight:'900',fontSize:14},secondaryText:{color:theme.text},pressed:{transform:[{scale:.985}],opacity:.9},disabled:{opacity:.45},
-  errorBox:{borderWidth:1,borderColor:'rgba(255,95,104,.28)',backgroundColor:theme.dangerSoft,borderRadius:12,padding:11},error:{color:'#FF8790',lineHeight:18,fontSize:13,fontWeight:'600'},
-  badge:{alignSelf:'flex-start',backgroundColor:theme.surface3,borderRadius:99,paddingHorizontal:9,paddingVertical:5,borderWidth:1,borderColor:theme.border},
-  badgeText:{color:theme.textSoft,fontSize:11,fontWeight:'800'},badgeSuccess:{backgroundColor:theme.successSoft,borderColor:'rgba(60,203,127,.24)'},badgeSuccessText:{color:theme.success},
+  buttonText:{color:'#fff',fontWeight:'900',fontSize:11},secondaryText:{color:theme.text},pressed:{transform:[{scale:.985}],opacity:.9},disabled:{opacity:.45},
+  errorBox:{borderWidth:1,borderColor:'rgba(255,95,104,.28)',backgroundColor:theme.dangerSoft,borderRadius:9,padding:7},error:{color:'#FF8790',lineHeight:14,fontSize:10,fontWeight:'600'},
+  badge:{alignSelf:'flex-start',backgroundColor:theme.surface3,borderRadius:99,paddingHorizontal:6,paddingVertical:3,borderWidth:1,borderColor:theme.border},
+  badgeText:{color:theme.textSoft,fontSize:8,fontWeight:'800'},badgeSuccess:{backgroundColor:theme.successSoft,borderColor:'rgba(60,203,127,.24)'},badgeSuccessText:{color:theme.success},
   badgeWarning:{backgroundColor:theme.warningSoft,borderColor:'rgba(247,185,85,.24)'},badgeWarningText:{color:theme.warning},
   badgeDanger:{backgroundColor:theme.dangerSoft,borderColor:'rgba(255,95,104,.24)'},badgeDangerText:{color:theme.danger},
   badgeInfo:{backgroundColor:'rgba(110,168,254,.12)',borderColor:'rgba(110,168,254,.24)'},badgeInfoText:{color:theme.info},
-  dot:{width:8,height:8,borderRadius:99},divider:{height:1,backgroundColor:theme.borderSoft},
-  backdrop:{flex:1,backgroundColor:'rgba(0,0,0,.72)',justifyContent:'flex-end'},sheet:{maxHeight:'92%',backgroundColor:theme.bgSoft,borderTopLeftRadius:28,borderTopRightRadius:28,paddingHorizontal:18,paddingTop:9,borderWidth:1,borderColor:theme.border},
-  handle:{width:42,height:4,borderRadius:99,backgroundColor:theme.border,alignSelf:'center',marginBottom:12},sheetHead:{flexDirection:'row',justifyContent:'space-between',alignItems:'center',marginBottom:16},
-  sheetTitle:{color:theme.text,fontSize:20,fontWeight:'900',letterSpacing:-.3},close:{color:theme.primary,fontWeight:'900'},sheetContent:{gap:12,paddingBottom:36}
+  dot:{width:6,height:6,borderRadius:99},divider:{height:1,backgroundColor:theme.borderSoft},
+  backdrop:{flex:1,backgroundColor:'rgba(0,0,0,.72)',justifyContent:'flex-end'},sheet:{maxHeight:'94%',backgroundColor:theme.bgSoft,borderTopLeftRadius:18,borderTopRightRadius:18,paddingHorizontal:10,paddingTop:6,borderWidth:1,borderColor:theme.border},
+  handle:{width:30,height:3,borderRadius:99,backgroundColor:theme.border,alignSelf:'center',marginBottom:7},sheetHead:{flexDirection:'row',justifyContent:'space-between',alignItems:'center',marginBottom:8},
+  sheetTitle:{color:theme.text,fontSize:15,fontWeight:'900',letterSpacing:-.2},close:{color:theme.primary,fontWeight:'900',fontSize:10},sheetContent:{gap:7,paddingBottom:20}
 });
 export const ui=s;
