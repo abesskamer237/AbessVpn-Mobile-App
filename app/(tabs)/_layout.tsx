@@ -6,10 +6,10 @@ function MiniIcon({label,focused}:{label:string;focused:boolean}){return <View s
 export default function TabsLayout(){
   return <Tabs screenOptions={{
     headerShown:false,
-    tabBarStyle:{position:'absolute',backgroundColor:'#0E1219',borderTopColor:theme.border,height:74,paddingTop:8,paddingBottom:9},
+    tabBarStyle:{position:'absolute',backgroundColor:'#0E1219',borderTopColor:theme.border,height:54,paddingTop:4,paddingBottom:5},
     tabBarActiveTintColor:theme.text,
     tabBarInactiveTintColor:theme.muted,
-    tabBarLabelStyle:{fontWeight:'800',fontSize:10,marginTop:2},
+    tabBarLabelStyle:{fontWeight:'800',fontSize:8,marginTop:0},
     tabBarHideOnKeyboard:true
   }}>
     <Tabs.Screen name="index" options={{title:'Accueil',tabBarIcon:({focused})=><MiniIcon label="D" focused={focused}/>}}/>
@@ -22,4 +22,4 @@ export default function TabsLayout(){
     <Tabs.Screen name="team" options={{href:null}}/>
   </Tabs>;
 }
-const s=StyleSheet.create({icon:{width:27,height:27,borderRadius:9,alignItems:'center',justifyContent:'center',backgroundColor:theme.surface2,borderWidth:1,borderColor:theme.border},iconActive:{backgroundColor:theme.primarySoft,borderColor:theme.primaryBorder},iconText:{fontSize:10,color:theme.muted,fontWeight:'900'},iconTextActive:{color:theme.primary}});
+const s=StyleSheet.create({icon:{width:21,height:21,borderRadius:7,alignItems:'center',justifyContent:'center',backgroundColor:theme.surface2,borderWidth:1,borderColor:theme.border},iconActive:{backgroundColor:theme.primarySoft,borderColor:theme.primaryBorder},iconText:{fontSize:8,color:theme.muted,fontWeight:'900'},iconTextActive:{color:theme.primary}});
