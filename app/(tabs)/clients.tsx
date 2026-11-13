@@ -52,6 +52,11 @@ export default function Clients(){
     setBusy(true);try{await api('/api/v1/admin/ssh/accounts/'+a.id,{method:'PATCH',body:JSON.stringify({enabled:!a.enabled})});await load();}
     catch(e){setError(e instanceof Error?e.message:'Modification impossible');}finally{setBusy(false);}
   }
+  async function repair(a:SshAccount){
+    setBusy(true);setError('');
+    try{await api('/api/v1/admin/ssh/accounts/'+a.id+'/retry',{method:'POST',body:'{}'});await load();}
+    catch(e){setError(e instanceof Error?e.message:'Réparation impossible');}finally{setBusy(false);}
+  }
   async function renew(){
     if(!selected)return;setBusy(true);setError('');
     try{await api('/api/v1/admin/ssh/accounts/'+selected.id+'/renew',{method:'POST',headers:{'Idempotency-Key':randomKey()},body:JSON.stringify({additionalGb:Number(renewGb),days:Number(renewDays)})});await load();}
@@ -114,7 +119,7 @@ export default function Clients(){
     <Sheet visible={!!selected} onClose={()=>setSelected(null)} title={selected?.label||'Client'}>
       {selected&&<>
         <Card><Text style={s.name}>{selected.username}</Text><Text style={ui.muted}>{accountStatus(selected).label} · {selected.resellerName||'Administration'}</Text><Text style={ui.muted}>Expiration : {fmtDate(selected.expiresAt)}</Text><Text style={ui.muted}>Quota : {selected.trafficVerified?(formatBytes(selected.usedBytes)+' / '+bytesToGb(selected.quotaBytes)+' Go'):('mesure en attente / '+bytesToGb(selected.quotaBytes)+' Go')}</Text>{selected.usageObservedAt&&<Text style={ui.muted}>Trafic observé : {new Date(selected.usageObservedAt).toLocaleString('fr-FR')}</Text>}</Card>
-        <Button title={selected.enabled?'Suspendre':'Réactiver'} kind="secondary" disabled={busy} onPress={()=>void toggle(selected)}/>
+        {selected.provisionState==='error'?<Button title="Réparer le compte" disabled={busy} onPress={()=>void repair(selected)}/>:<Button title={selected.enabled?'Suspendre':'Réactiver'} kind="secondary" disabled={busy} onPress={()=>void toggle(selected)}/>} 
         <Label>Renouvellement</Label><View style={s.two}><View style={{flex:1,gap:6}}><Label>Go +</Label><Field keyboardType="decimal-pad" value={renewGb} onChangeText={setRenewGb}/></View><View style={{flex:1,gap:6}}><Label>Jours +</Label><Field keyboardType="number-pad" value={renewDays} onChangeText={setRenewDays}/></View></View>
         <Button title="Renouveler" disabled={busy} onPress={()=>void renew()}/>
         <Button title="Afficher la configuration SSH-WSS" kind="secondary" disabled={busy||!selected.effectiveEnabled} onPress={()=>void showConfig()}/>
