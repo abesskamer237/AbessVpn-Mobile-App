@@ -32,11 +32,11 @@ jobs:
         run: npm run typecheck
       - name: Bundle Android
         env:
-          EXPO_PUBLIC_API_BASE_URL: https://example.invalid
+          EXPO_PUBLIC_API_BASE_URL: https://abessserveur.pagnol.xyz
         run: npm run export:android
       - name: Bundle iOS
         env:
-          EXPO_PUBLIC_API_BASE_URL: https://example.invalid
+          EXPO_PUBLIC_API_BASE_URL: https://abessserveur.pagnol.xyz
         run: npm run export:ios
 
   android-native:
@@ -57,7 +57,7 @@ jobs:
         run: npm install
       - name: Generate Android project
         env:
-          EXPO_PUBLIC_API_BASE_URL: https://example.invalid
+          EXPO_PUBLIC_API_BASE_URL: https://abessserveur.pagnol.xyz
         run: npx expo prebuild --clean --platform android --no-install
       - name: Build optimized ARM64 release APK
         working-directory: android
@@ -65,11 +65,11 @@ jobs:
       - name: Prepare distributable APK
         run: |
           mkdir -p release
-          cp android/app/build/outputs/apk/release/app-release.apk release/ABESS-VPN-Control-v0.3.2-ARM64-MIN.apk
+          cp android/app/build/outputs/apk/release/app-release.apk release/ABESS-VPN-Control-v0.3.3-ARM64-MIN.apk
       - name: Upload installable APK
         uses: actions/upload-artifact@v4
         with:
-          name: ABESS-VPN-Control-v0.3.2-ARM64-MIN
-          path: release/ABESS-VPN-Control-v0.3.2-ARM64-MIN.apk
+          name: ABESS-VPN-Control-v0.3.3-ARM64-MIN
+          path: release/ABESS-VPN-Control-v0.3.3-ARM64-MIN.apk
           if-no-files-found: error
           retention-days: 30
