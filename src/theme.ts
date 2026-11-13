@@ -1,1 +1,25 @@
-export const theme={bg:'#0B1020',surface:'#121A2E',surface2:'#18233D',text:'#F7F9FC',muted:'#9AA7BF',primary:'#FF7A00',border:'#263653',danger:'#FF5A67'};
+export const theme={
+  bg:'#07090D',
+  bgSoft:'#0B0E14',
+  surface:'#10141C',
+  surface2:'#151A24',
+  surface3:'#1A202C',
+  text:'#F5F7FA',
+  textSoft:'#D8DEE8',
+  muted:'#8B95A7',
+  muted2:'#667085',
+  primary:'#FF7A00',
+  primarySoft:'rgba(255,122,0,0.12)',
+  primaryBorder:'rgba(255,122,0,0.30)',
+  border:'#222936',
+  borderSoft:'#1A202B',
+  success:'#3CCB7F',
+  successSoft:'rgba(60,203,127,0.12)',
+  warning:'#F7B955',
+  warningSoft:'rgba(247,185,85,0.12)',
+  danger:'#FF5F68',
+  dangerSoft:'rgba(255,95,104,0.12)',
+  info:'#6EA8FE',
+  radius:{sm:10,md:14,lg:18,xl:24},
+  spacing:{xs:6,sm:10,md:14,lg:18,xl:24,xxl:32}
+} as const;
