@@ -37,8 +37,8 @@ export default function Resellers(){
   function open(r:Reseller){setSelected(r);setPriceGb(String(r.pricePerGbCfa||0));setCostGb(String(r.costPerGbCfa||0));setPriceLicence(String(r.pricePerLicenceCfa||0));}
 
   return <Screen scroll={false}>
-    <View style={{padding:18,paddingBottom:8,gap:10}}><Title sub="Hiérarchie, crédits et tarification des revendeurs.">Revendeurs</Title><ErrorText value={error}/><Field placeholder="Rechercher…" value={search} onChangeText={setSearch}/><Button title="Créer un revendeur" onPress={()=>setCreateOpen(true)}/></View>
-    <FlatList style={{flex:1}} data={rows} keyExtractor={x=>x.id} contentContainerStyle={{padding:18,paddingTop:4,gap:10,paddingBottom:40}}
+    <View style={{padding:10,paddingBottom:5,gap:6}}><Title sub="Hiérarchie, crédits et tarification des revendeurs.">Revendeurs</Title><ErrorText value={error}/><Field placeholder="Rechercher…" value={search} onChangeText={setSearch}/><Button title="Créer un revendeur" onPress={()=>setCreateOpen(true)}/></View>
+    <FlatList style={{flex:1}} data={rows} keyExtractor={x=>x.id} contentContainerStyle={{padding:10,paddingTop:3,gap:6,paddingBottom:26}}
       refreshControl={<RefreshControl refreshing={refreshing} tintColor={theme.primary} onRefresh={()=>{setRefreshing(true);void load().finally(()=>setRefreshing(false))}}/>}
       ListEmptyComponent={<Card><Text style={ui.muted}>Aucun revendeur.</Text></Card>}
       renderItem={({item})=><Pressable onPress={()=>open(item)}><Card><View style={s.row}><View style={{flex:1}}><Text style={s.name}>{item.name}</Text><Text style={ui.muted}>{item.email}</Text></View><Text style={[s.state,item.status!=='active'&&{color:theme.danger}]}>{item.status}</Text></View><Text style={ui.muted}>{item.credits} Go · {item.subResellersCount||0} sous-revendeur(s)</Text>{!!item.hierarchyPath?.length&&<Text style={ui.muted}>{item.hierarchyPath.join(' › ')}</Text>}</Card></Pressable>}
@@ -66,4 +66,4 @@ export default function Resellers(){
     </Sheet>
   </Screen>;
 }
-const s=StyleSheet.create({row:{flexDirection:'row',alignItems:'center',gap:10},name:{color:theme.text,fontWeight:'900',fontSize:16},state:{color:theme.primary,fontWeight:'800'},three:{flexDirection:'row',gap:10}});
+const s=StyleSheet.create({row:{flexDirection:'row',alignItems:'center',gap:6},name:{color:theme.text,fontWeight:'900',fontSize:9},state:{color:theme.primary,fontWeight:'800'},three:{flexDirection:'row',gap:6}});
