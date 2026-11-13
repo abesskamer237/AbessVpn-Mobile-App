@@ -58,3 +58,9 @@ export type ClientConfig={
   host:string;port:number;fingerprint:string;wire:string;transport:string;
   expiresAt?:string;quotaGb?:number;usedGb?:number|null;trafficVerified?:boolean;
 };
+
+export type SshDevice={
+  deviceKey:string;usedBytes:number;upBytes:number;downBytes:number;
+  firstSeenAt?:string;lastSeenAt?:string;activeSessions?:number;ip?:string;
+  userAgent?:string;name?:string;brand?:string;blocked:boolean;
+};
