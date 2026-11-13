@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "ABESS VPN",
+    "name": "ABESS VPN Control",
     "slug": "abessvpn-mobile",
     "scheme": "abessvpn",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
     "plugins": [
@@ -20,10 +20,12 @@
       "supportsTablet": true,
       "config": {
         "usesNonExemptEncryption": false
-      }
+      },
+      "buildNumber": "3"
     },
     "android": {
-      "package": "com.abessvpn.panel"
+      "package": "com.abessvpn.panel",
+      "versionCode": 3
     }
   }
 }
