@@ -1,7 +1,7 @@
 import {useCallback,useEffect,useMemo,useState} from 'react';
 import {Alert,FlatList,Pressable,RefreshControl,StyleSheet,Text,View} from 'react-native';
 import {api,randomKey} from '@/lib/api';
-import {accountStatus,bytesToGb,fmtDate,percent} from '@/lib/format';
+import {accountStatus,bytesToGb,formatBytes,fmtDate,percent} from '@/lib/format';
 import type {ClientConfig,Reseller,SshAccount,SshInventory,SshDevice} from '@/types';
 import {Badge,Button,Card,ErrorText,Field,Label,Screen,Sheet,Title,ui} from '@/components/ui';
 import {theme} from '@/theme';
@@ -92,7 +92,7 @@ export default function Clients(){
       ListEmptyComponent={<Card><Text style={ui.muted}>Aucun client SSH-WSS.</Text></Card>}
       renderItem={({item})=>{const st=accountStatus(item),p=percent(item.usedBytes,item.quotaBytes);return <Pressable onPress={()=>{setSelected(item);setConfig(null);setDevices([]);void loadDevices(item.id)}}><Card>
         <View style={s.row}><View style={{flex:1}}><Text style={s.name}>{item.label}</Text><Text style={ui.muted}>{item.username}</Text></View><Badge text={st.label}/></View>
-        <Text style={ui.muted}>{item.trafficVerified?(bytesToGb(item.usedBytes)+' / '+bytesToGb(item.quotaBytes)+' Go · '+p+'%'):('Trafic en attente de mesure · quota '+bytesToGb(item.quotaBytes)+' Go')}</Text>
+        <Text style={ui.muted}>{item.trafficVerified?(formatBytes(item.usedBytes)+' / '+bytesToGb(item.quotaBytes)+' Go · '+p+'%'):('Trafic en attente de mesure · quota '+bytesToGb(item.quotaBytes)+' Go')}</Text>
         <View style={s.bar}><View style={[s.fill,{width:(p+'%') as any}]}/></View>
         <Text style={ui.muted}>{item.online??'—'} / {item.maxConnections} session(s) · Exp. {fmtDate(item.expiresAt)}</Text>
         <Text style={ui.muted}>Revendeur : {item.resellerName||'Administration'}</Text>
@@ -113,7 +113,7 @@ export default function Clients(){
 
     <Sheet visible={!!selected} onClose={()=>setSelected(null)} title={selected?.label||'Client'}>
       {selected&&<>
-        <Card><Text style={s.name}>{selected.username}</Text><Text style={ui.muted}>{accountStatus(selected).label} · {selected.resellerName||'Administration'}</Text><Text style={ui.muted}>Expiration : {fmtDate(selected.expiresAt)}</Text><Text style={ui.muted}>Quota : {selected.trafficVerified?(bytesToGb(selected.usedBytes)+' / '+bytesToGb(selected.quotaBytes)+' Go'):('mesure en attente / '+bytesToGb(selected.quotaBytes)+' Go')}</Text>{selected.usageObservedAt&&<Text style={ui.muted}>Trafic observé : {new Date(selected.usageObservedAt).toLocaleString('fr-FR')}</Text>}</Card>
+        <Card><Text style={s.name}>{selected.username}</Text><Text style={ui.muted}>{accountStatus(selected).label} · {selected.resellerName||'Administration'}</Text><Text style={ui.muted}>Expiration : {fmtDate(selected.expiresAt)}</Text><Text style={ui.muted}>Quota : {selected.trafficVerified?(formatBytes(selected.usedBytes)+' / '+bytesToGb(selected.quotaBytes)+' Go'):('mesure en attente / '+bytesToGb(selected.quotaBytes)+' Go')}</Text>{selected.usageObservedAt&&<Text style={ui.muted}>Trafic observé : {new Date(selected.usageObservedAt).toLocaleString('fr-FR')}</Text>}</Card>
         <Button title={selected.enabled?'Suspendre':'Réactiver'} kind="secondary" disabled={busy} onPress={()=>void toggle(selected)}/>
         <Label>Renouvellement</Label><View style={s.two}><View style={{flex:1,gap:6}}><Label>Go +</Label><Field keyboardType="decimal-pad" value={renewGb} onChangeText={setRenewGb}/></View><View style={{flex:1,gap:6}}><Label>Jours +</Label><Field keyboardType="number-pad" value={renewDays} onChangeText={setRenewDays}/></View></View>
         <Button title="Renouveler" disabled={busy} onPress={()=>void renew()}/>
@@ -123,7 +123,7 @@ export default function Clients(){
         {devicesBusy&&<Text style={ui.muted}>Synchronisation des appareils…</Text>}
         {devices.map(device=><Card key={device.deviceKey}>
           <View style={s.row}><View style={{flex:1}}><Text style={s.name}>{device.name||device.brand||'Appareil inconnu'}</Text><Text style={ui.muted}>{device.brand&&device.name?device.brand+' · ':''}{device.ip||'IP indisponible'}</Text></View><Badge text={device.blocked?'Suspendu':(device.activeSessions||0)>0?'Connecté':'Hors ligne'}/></View>
-          <Text style={ui.muted}>Consommation : {bytesToGb(device.usedBytes)} Go · ↑ {bytesToGb(device.upBytes)} Go · ↓ {bytesToGb(device.downBytes)} Go</Text>
+          <Text style={ui.muted}>Consommation : {formatBytes(device.usedBytes)} · ↑ {formatBytes(device.upBytes)} · ↓ {formatBytes(device.downBytes)}</Text>
           <Text style={ui.muted}>Sessions : {device.activeSessions||0} · Dernière activité : {device.lastSeenAt?new Date(device.lastSeenAt).toLocaleString('fr-FR'):'—'}</Text>
           {!!device.userAgent&&<Text numberOfLines={2} style={ui.muted}>Client : {device.userAgent}</Text>}
           <Button title={device.blocked?'Réautoriser cet appareil':'Suspendre cet appareil'} kind={device.blocked?'secondary':'danger'} disabled={devicesBusy} onPress={()=>void toggleDevice(device)}/>
