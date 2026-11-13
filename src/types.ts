@@ -55,7 +55,7 @@ export type SecurityStatus={
 
 export type ClientConfig={
   format?:string;protocol?:string;username:string;password:string;path:string;sni:string;
-  host:string;port:number;fingerprint:string;wire:string;transport:string;
+  host:string;port:number;fingerprint:string;wire:string;transport:string;payload?:string|null;websocket?:boolean;
   expiresAt?:string;quotaGb?:number;usedGb?:number|null;trafficVerified?:boolean;
 };
 
