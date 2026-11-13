@@ -43,17 +43,17 @@ export default function Login(){
   </SafeAreaView>;
 }
 const s=StyleSheet.create({
-  page:{flex:1,backgroundColor:theme.bg,justifyContent:'center',overflow:'hidden'},wrap:{paddingHorizontal:22,paddingVertical:26,gap:24},
+  page:{flex:1,backgroundColor:theme.bg,justifyContent:'center',overflow:'hidden'},wrap:{paddingHorizontal:14,paddingVertical:16,gap:14},
   glowOne:{position:'absolute',width:260,height:260,borderRadius:260,backgroundColor:'rgba(255,122,0,.075)',top:-100,right:-90},
   glowTwo:{position:'absolute',width:220,height:220,borderRadius:220,backgroundColor:'rgba(110,168,254,.04)',bottom:-100,left:-80},
-  brandRow:{flexDirection:'row',alignItems:'center',gap:12},mark:{width:42,height:42,borderRadius:13,backgroundColor:theme.primary,alignItems:'center',justifyContent:'center'},
-  markText:{color:'#fff',fontWeight:'900',fontSize:22},brand:{color:theme.text,fontWeight:'900',fontSize:15,letterSpacing:.4},brandSub:{color:theme.muted,fontSize:9,fontWeight:'800',letterSpacing:2.2,marginTop:2},
-  hero:{gap:8},kicker:{color:theme.primary,fontWeight:'900',letterSpacing:1.8,fontSize:10},title:{color:theme.text,fontWeight:'900',fontSize:32,lineHeight:37,letterSpacing:-1},
-  desc:{color:theme.muted,fontSize:14,lineHeight:21,maxWidth:520},panel:{backgroundColor:theme.surface,borderWidth:1,borderColor:theme.border,borderRadius:24,padding:18,gap:14},
-  panelTitle:{color:theme.text,fontSize:18,fontWeight:'900'},panelSub:{color:theme.muted,fontSize:13,lineHeight:19,marginTop:-8,marginBottom:2},
-  fieldWrap:{gap:7},fieldLabel:{color:theme.textSoft,fontSize:10,fontWeight:'900',letterSpacing:1.15},input:{backgroundColor:theme.bgSoft,borderColor:theme.border,borderWidth:1,borderRadius:13,paddingHorizontal:14,paddingVertical:14,color:theme.text,fontSize:15},
-  button:{marginTop:3,minHeight:50,borderRadius:14,backgroundColor:theme.primary,alignItems:'center',justifyContent:'center'},buttonText:{color:'#fff',fontWeight:'900',fontSize:14},
-  secureRow:{flexDirection:'row',alignItems:'center',justifyContent:'center',gap:7,marginTop:2},secureDot:{width:7,height:7,borderRadius:99,backgroundColor:theme.success},secureText:{color:theme.muted,fontSize:10,fontWeight:'700'},
-  errorBox:{backgroundColor:theme.dangerSoft,borderWidth:1,borderColor:'rgba(255,95,104,.24)',borderRadius:12,padding:11},error:{color:'#FF8A92',fontSize:12,fontWeight:'700'},
-  checkCard:{alignSelf:'center',alignItems:'center',gap:14},loading:{color:theme.muted,fontSize:13}
+  brandRow:{flexDirection:'row',alignItems:'center',gap:12},mark:{width:32,height:32,borderRadius:10,backgroundColor:theme.primary,alignItems:'center',justifyContent:'center'},
+  markText:{color:'#fff',fontWeight:'900',fontSize:17},brand:{color:theme.text,fontWeight:'900',fontSize:12,letterSpacing:.25},brandSub:{color:theme.muted,fontSize:7,fontWeight:'800',letterSpacing:1.5,marginTop:2},
+  hero:{gap:4},kicker:{color:theme.primary,fontWeight:'900',letterSpacing:1.8,fontSize:8},title:{color:theme.text,fontWeight:'900',fontSize:22,lineHeight:25,letterSpacing:-1},
+  desc:{color:theme.muted,fontSize:11,lineHeight:15,maxWidth:520},panel:{backgroundColor:theme.surface,borderWidth:1,borderColor:theme.border,borderRadius:16,padding:11,gap:8},
+  panelTitle:{color:theme.text,fontSize:14,fontWeight:'900'},panelSub:{color:theme.muted,fontSize:10,lineHeight:14,marginTop:-8,marginBottom:2},
+  fieldWrap:{gap:4},fieldLabel:{color:theme.textSoft,fontSize:8,fontWeight:'900',letterSpacing:.8},input:{backgroundColor:theme.bgSoft,borderColor:theme.border,borderWidth:1,borderRadius:13,paddingHorizontal:10,paddingVertical:9,color:theme.text,fontSize:12},
+  button:{marginTop:3,minHeight:36,borderRadius:10,backgroundColor:theme.primary,alignItems:'center',justifyContent:'center'},buttonText:{color:'#fff',fontWeight:'900',fontSize:11},
+  secureRow:{flexDirection:'row',alignItems:'center',justifyContent:'center',gap:5,marginTop:1},secureDot:{width:5,height:5,borderRadius:99,backgroundColor:theme.success},secureText:{color:theme.muted,fontSize:8,fontWeight:'700'},
+  errorBox:{backgroundColor:theme.dangerSoft,borderWidth:1,borderColor:'rgba(255,95,104,.24)',borderRadius:9,padding:7},error:{color:'#FF8A92',fontSize:10,fontWeight:'700'},
+  checkCard:{alignSelf:'center',alignItems:'center',gap:8},loading:{color:theme.muted,fontSize:10}
 });
